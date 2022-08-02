@@ -5,7 +5,7 @@ const api = require("routers/api")
 const render = require("routers/render")
 const cors = require("cors")
 
-app.use(cors(/* { origin: "https://shorten.zavaar.net" } */))
+app.use(cors({ origin: "https://shorten.zavaar.net" }))
 app.set("view engine", "pug")
 app.use(express.json())
 
