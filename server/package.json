@@ -1,0 +1,20 @@
+{
+  "name": "shorten",
+  "version": "1.0.0",
+  "description": "Shorten your URLs",
+  "main": "src/index.js",
+  "scripts": {
+    "deploy": "deta deploy",
+    "pretest": "start http://localhost:3000",
+    "test": "node index.js"
+  },
+  "author": "https://github.com/thatziv",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "deta": "^1.1.0",
+    "dotenv": "^16.0.1",
+    "express.js": "^1.0.0",
+    "pug": "^3.0.2"
+  }
+}
