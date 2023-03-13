@@ -4,8 +4,8 @@ const app = express()
 const api = require("routers/api")
 const render = require("routers/render")
 const cors = require("cors")
-
-var whitelist = ['https://shorten.zavaar.net', 'https://tools.zavaar.net', 'https://s.zavaar.net']
+const port = process.env.PORT
+var whitelist = ['https://shorten.zavaar.net', 'https://tools.zavaar.net', `https://${process.env.DOMAIN}`]
 // var corsOptions = {
 //     origin: function (origin, callback) {
 //         if (whitelist.indexOf(origin) !== -1 /* || !origin */) {
@@ -26,4 +26,6 @@ app.use(render)
 app.use("/api", api)
 
 // app.listen(3000)
-module.exports = app
+app.listen(port || 3000, () => {
+    console.log(`Example app listening on port ${port}`)
+})
