@@ -35,6 +35,5 @@ jobs:
           id: ${{ secrets.SPACE_ID }}
           dir: ./server
           version: "1.0.0"
-          notes: "Release automatically with GitHub deta action"
+          notes: ${{ github.event.head_commit.message }}
           listed: false
-          release: false

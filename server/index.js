@@ -26,11 +26,9 @@ app.use(render)
 app.use("/api", api)
 
 // app.listen(3000)
-//run only in dev mode
-if (process.env.NODE_ENV === "development") {
-    app.listen(port || 3000, () => {
-        console.log(`Listening on port ${port}`)
-    })
-}
+
+app.listen(port || 3000, () => {
+    console.log(`Listening on port ${port}`)
+})
 
 module.exports = app
