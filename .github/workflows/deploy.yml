@@ -36,13 +36,22 @@ jobs:
       #     space push -i "${{ github.event.head_commit.id }}" -t "${{ github.event.head_commit.message }}"
       - name: prep
         run: cd server
+      # - name: Deploy
+      #   if: github.event_name == 'push'
+      #   uses: lizheming/deta-action@master
+      #   with:
+      #     access_token: ${{ secrets.SPACE_ACCESS_TOKEN }}
+      #     id: ${{ secrets.SPACE_ID }}
+      #     dir: "./server"
+      #     version: "1.0.0"
+      #     notes: "${{ github.event.head_commit.message }}"
+      #     listed: false
       - name: Deploy
-        if: github.event_name == 'push'
-        uses: lizheming/deta-action@master
+        uses: neobrains/space-deployment-github-action@v0.5
         with:
           access_token: ${{ secrets.SPACE_ACCESS_TOKEN }}
-          id: ${{ secrets.SPACE_ID }}
-          dir: "./server"
-          version: "1.0.0"
-          notes: "${{ github.event.head_commit.message }}"
-          listed: false
+          project_id: ${{ secrets.SPACE_ID }}
+          project_directory: "./server"
+          space_push: true
+          space_release: false
+          list_on_discovery: false
