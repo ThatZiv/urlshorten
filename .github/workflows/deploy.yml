@@ -31,7 +31,7 @@ jobs:
           cd server
           curl -fsSL https://get.deta.dev/space-cli.sh | sh
           export PATH="/home/runner/.detaspace/bin:$PATH"
-          space login -t ${{ secrets.SPACE_ACCESS_TOKEN }}
+          space login -t=${{ secrets.SPACE_ACCESS_TOKEN }}
           space link -i ${{ secrets.SPACE_ID }}
           space push -i "${{ github.event.head_commit.id }}" -t "${{ github.event.head_commit.message }}"
       # - name: Deploy
