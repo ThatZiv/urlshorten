@@ -5,7 +5,7 @@ micros:
     src: .
     engine: nodejs16
     primary: true
-    run: "node server/index.js"
+    run: "node index.js"
     public_routes:
       - "/*"
     presets:
