@@ -1,5 +1,6 @@
 module.exports = {
     generateRandomString,
+    findId,
     // parses ip from req.ip
     stripIP: (ip) => {
         if (ip.substr(0, 7) == "::ffff:") {
@@ -14,11 +15,11 @@ module.exports = {
             return true
         } catch (err) {
             return false
-        } 
+        }
     }
 }
 // for url generation
-function* generateRandomString(len=4) {
+function* generateRandomString(len = 4) {
     while (true) {
         let result = ""
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -28,4 +29,29 @@ function* generateRandomString(len=4) {
         }
         yield result;
     }
+}
+
+
+// @type {import("deta/dist/types").Base} Base
+/**
+ * Finds the id object using 
+ * @param {import("deta/dist/types").Base} db
+ * @param {string} id 
+ * @returns {Promise<string> | Promise<boolean>}
+ */
+function findId(db, id) {
+    return new Promise(async (resolve, reject) => {
+        let shortenObj = await db.fetch({ id })
+        if (shortenObj.count > 0) {
+            resolve(shortenObj.items[0].original)
+        } else {
+            while (shortenObj.last) {
+                shortenObj = await db.fetch({ id }, { last: shortenObj.last })
+                if (shortenObj.count > 0) {
+                    resolve(shortenObj.items[0].original)
+                }
+            }
+            reject(false)
+        }
+    })
 }

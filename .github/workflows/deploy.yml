@@ -1,0 +1,35 @@
+name: Deploy to Deta.sh
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: deploy to deta space
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install dependencies and build
+        run: |
+          cd server
+          npm install
+          timeout -s SIGQUIT 5 npm run start
+
+      - name: Deploy
+        if: github.event_name == 'push'
+        uses: lizheming/deta-action@master
+        with:
+          access_token: ${{ secrets.SPACE_ACCESS_TOKEN }}
+          id: ${{ secrets.SPACE_ID }}
+          dir: server
+          version: "1.0.0"
+          notes: "Release automatically with GitHub deta action"
+          listed: false

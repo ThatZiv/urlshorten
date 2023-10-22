@@ -8,3 +8,8 @@ micros:
     run: "node index.js"
     public_routes:
       - "/*"
+    presets:
+      env:
+        - name: KEY_NAME
+        - name: PROJ_KEY
+        - name: DOMAIN

@@ -2,11 +2,11 @@
   "name": "shorten",
   "version": "1.1.0",
   "description": "Shorten your URLs",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "deploy": "deta deploy",
+    "deploy": "space deploy",
     "pretest": "start http://localhost:3000",
-    "test": "node index.js"
+    "start": "node ."
   },
   "author": "https://github.com/thatziv",
   "license": "ISC",

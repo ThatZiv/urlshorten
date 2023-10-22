@@ -1,11 +1,11 @@
 require('dotenv').config()
 const express = require("express")
 const app = express()
-const api = require("routers/api")
-const render = require("routers/render")
+const api = require("./routers/api")
+const render = require("./routers/render")
 const cors = require("cors")
 const port = process.env.PORT
-var whitelist = ['https://shorten.zavaar.net', 'https://tools.zavaar.net', `https://${process.env.DOMAIN}`]
+var whitelist = ['https://tools.zavaar.net']
 // var corsOptions = {
 //     origin: function (origin, callback) {
 //         if (whitelist.indexOf(origin) !== -1 /* || !origin */) {
@@ -26,6 +26,11 @@ app.use(render)
 app.use("/api", api)
 
 // app.listen(3000)
-app.listen(port || 3000, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+//run only in dev mode
+if (process.env.NODE_ENV === "development") {
+    app.listen(port || 3000, () => {
+        console.log(`Listening on port ${port}`)
+    })
+}
+
+module.exports = app
