@@ -25,7 +25,8 @@ jobs:
       #     cd server
       #     npm install
       #     timeout -s SIGQUIT 5 npm run start
-      - run: ls .
+      - name: prep
+        run: cd server
       - name: Deploy
         if: github.event_name == 'push'
         uses: lizheming/deta-action@master
