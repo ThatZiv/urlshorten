@@ -25,7 +25,7 @@ jobs:
       #     cd server
       #     npm install
       #     timeout -s SIGQUIT 5 npm run start
-
+      - run: ls .
       - name: Deploy
         if: github.event_name == 'push'
         uses: lizheming/deta-action@master
@@ -36,3 +36,4 @@ jobs:
           version: "1.0.0"
           notes: "Release automatically with GitHub deta action"
           listed: false
+          release: false
