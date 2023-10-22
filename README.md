@@ -2,7 +2,7 @@
 
 A free open-source alternative to shortening URLs
 
-[https://shorten.zavaar.net](https://shorten.zavaar.net)
+[https://tools.zavaar.net/#/shorten](https://tools.zavaar.net/#/shorten)
 
 
 # API
