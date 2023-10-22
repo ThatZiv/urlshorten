@@ -34,8 +34,8 @@ jobs:
       #     space login -t=${{ secrets.SPACE_ACCESS_TOKEN }}
       #     space link -i ${{ secrets.SPACE_ID }}
       #     space push -i "${{ github.event.head_commit.id }}" -t "${{ github.event.head_commit.message }}"
-      - name: prep
-        run: cd server
+      # - name: prep
+      #   run: cd server
       - name: Deploy
         if: github.event_name == 'push'
         uses: lizheming/deta-action@master
