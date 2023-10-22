@@ -25,15 +25,21 @@ jobs:
       #     cd server
       #     npm install
       #     timeout -s SIGQUIT 5 npm run start
-      - name: prep
-        run: cd server
-      - name: Deploy
+      - name: Setup Deta.space CLI
         if: github.event_name == 'push'
-        uses: lizheming/deta-action@master
-        with:
-          access_token: ${{ secrets.SPACE_ACCESS_TOKEN }}
-          id: ${{ secrets.SPACE_ID }}
-          dir: ./server
-          version: "1.0.0"
-          notes: ${{ github.event.head_commit.message }}
-          listed: false
+        run: |
+          cd server
+          curl -fsSL https://get.deta.dev/space-cli.sh | sh
+          space login -t ${{ secrets.SPACE_ACCESS_TOKEN }}
+          space link -i ${{ secrets.SPACE_ID }}
+          space push -y -i ${{ github.event.head_commit.id }} -t ${{ github.event.head_commit.message }}
+      # - name: Deploy
+      #   if: github.event_name == 'push'
+      #   uses: lizheming/deta-action@master
+      #   with:
+      #     access_token: ${{ secrets.SPACE_ACCESS_TOKEN }}
+      #     id: ${{ secrets.SPACE_ID }}
+      #     dir: ./server
+      #     version: "1.0.0"
+      #     notes: ${{ github.event.head_commit.message }}
+      #     listed: false
