@@ -3,7 +3,10 @@ name: Deploy to Deta.sh
 on:
   push:
     branches:
-      - main
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   deploy:
@@ -13,15 +16,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16.x
-      - name: Install dependencies and build
-        run: |
-          cd server
-          npm install
-          timeout -s SIGQUIT 5 npm run start
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 16.x
+      # - name: Install dependencies and build
+      #   run: |
+      #     cd server
+      #     npm install
+      #     timeout -s SIGQUIT 5 npm run start
 
       - name: Deploy
         if: github.event_name == 'push'
