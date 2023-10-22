@@ -32,7 +32,7 @@ jobs:
         with:
           access_token: ${{ secrets.SPACE_ACCESS_TOKEN }}
           id: ${{ secrets.SPACE_ID }}
-          dir: server
+          dir: ./server
           version: "1.0.0"
           notes: "Release automatically with GitHub deta action"
           listed: false
