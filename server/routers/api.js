@@ -2,6 +2,7 @@ const express = require("express")
 const { Deta } = require("deta")
 const router = express.Router()
 const { generateRandomString, stripIP, isURL } = require("../utils")
+const utils = require("../utils")
 const idGen = generateRandomString()
 
 //db
@@ -20,6 +21,21 @@ router.post("/create", async (req, res) => {
         return
     }
     let id = idGen.next().value
+
+    do {
+        try {
+            let idCheck = await utils.findId(db, id);
+            if (idCheck.count > 0) {
+                id = idGen.next().value
+            } else {
+                break
+            }
+        }
+        catch (err) {
+            break
+        }
+    } while (true)
+
     // let idCheck = await db.fetch({ "id": id })
     // // if the current url id exists, regenerate it until the id doesnt exist
     // while (idCheck.count > 0) {
