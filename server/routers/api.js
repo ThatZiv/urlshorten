@@ -10,7 +10,8 @@ const deta = Deta(process.env.PROJ_KEY)
 const db = deta.Base("shorten")
 
 router.post("/create", async (req, res) => {
-    var url = req.query.url
+    let url = req.query.url
+    let hcaptcha = req.query.hcaptcha
     if (!url) {
         res.status(400).json({ error: "No URL provided" })
         return
@@ -20,7 +21,8 @@ router.post("/create", async (req, res) => {
         res.status(400).json({ error: "Invalid URL" })
         return
     }
-    if (!(await utils.hcaptchaCheck(req.query.hcaptcha))) {
+    hcaptcha = decodeURIComponent(hcaptcha)
+    if (!(await utils.hcaptchaCheck(hcaptcha))) {
         res.status(400).json({ error: "Invalid captcha" })
         return
     }
