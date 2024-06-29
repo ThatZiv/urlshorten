@@ -20,6 +20,10 @@ router.post("/create", async (req, res) => {
         res.status(400).json({ error: "Invalid URL" })
         return
     }
+    if (!(await utils.hcaptchaCheck(req.query.hcaptcha))) {
+        res.status(400).json({ error: "Invalid captcha" })
+        return
+    }
     let id = idGen.next().value
 
     do {
@@ -36,10 +40,6 @@ router.post("/create", async (req, res) => {
         }
     } while (true)
 
-    if (await utils.hcaptchaCheck(req.query.hcaptcha)) {
-        res.status(400).json({ error: "Invalid captcha" })
-        return
-    }
     let obj = {
         original: url,
         shortened: `https://${process.env.DOMAIN}/${id}`,
