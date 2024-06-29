@@ -36,14 +36,10 @@ router.post("/create", async (req, res) => {
         }
     } while (true)
 
-    // let idCheck = await db.fetch({ "id": id })
-    // // if the current url id exists, regenerate it until the id doesnt exist
-    // while (idCheck.count > 0) {
-    //     id = idGen.next().value
-    //     idCheck = await db.fetch({ "id": id })
-    // }
-    /* res.json({id, idCheck})
-    return */
+    if (await utils.hcaptchaCheck(req.query.hcaptcha)) {
+        res.status(400).json({ error: "Invalid captcha" })
+        return
+    }
     let obj = {
         original: url,
         shortened: `https://${process.env.DOMAIN}/${id}`,

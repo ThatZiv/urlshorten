@@ -16,6 +16,18 @@ module.exports = {
         } catch (err) {
             return false
         }
+    },
+    /**
+     * Checks if the hCaptcha token is valid
+     * @param {string} token - hCaptcha token
+     * @returns {Promise<boolean>} - whether the token is valid or not
+     */
+    hcaptchaCheck: async (token) => {
+        const verifyResp = await fetch(
+            `https://hcaptcha.com/siteverify?secret=${process.env.HCAPTCHA_SECRET_KEY}&response=${token}`
+        );
+        const verifyJson = await verifyResp.json();
+        return verifyJson.success;
     }
 }
 // for url generation
